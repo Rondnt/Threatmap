@@ -109,23 +109,35 @@ const Risk = sequelize.define('Risk', {
   timestamps: true,
   hooks: {
     beforeValidate: (risk) => {
+      console.log('🔵 beforeValidate hook triggered');
+      console.log(`  - probability: ${risk.probability} (type: ${typeof risk.probability})`);
+      console.log(`  - impact: ${risk.impact} (type: ${typeof risk.impact})`);
+
       // Calculate risk score - check for null/undefined, not falsy (to allow 0 values)
       if (risk.probability !== null && risk.probability !== undefined &&
           risk.impact !== null && risk.impact !== undefined) {
-        risk.risk_score = (risk.probability * risk.impact * 10).toFixed(2);
+
+        const calculatedScore = (risk.probability * risk.impact * 10).toFixed(2);
+        console.log(`  - Calculated score: ${calculatedScore}`);
+        risk.risk_score = calculatedScore;
 
         // Determine risk level - adjusted to be more reasonable
         // probability (0-1) × impact (1-10) × 10 = max score 100
         const score = parseFloat(risk.risk_score);
+        let newLevel;
         if (score >= 50) {
-          risk.risk_level = 'critical';  // Very high probability AND impact
+          newLevel = 'critical';  // Very high probability AND impact
         } else if (score >= 30) {
-          risk.risk_level = 'high';      // High probability or impact
+          newLevel = 'high';      // High probability or impact
         } else if (score >= 15) {
-          risk.risk_level = 'medium';    // Moderate risk
+          newLevel = 'medium';    // Moderate risk
         } else {
-          risk.risk_level = 'low';       // Low risk
+          newLevel = 'low';       // Low risk
         }
+        console.log(`  - New risk_level: ${newLevel} (was: ${risk.risk_level})`);
+        risk.risk_level = newLevel;
+      } else {
+        console.log('  ⚠️  Probability or impact is null/undefined, skipping calculation');
       }
 
       // Calculate residual risk if values present

@@ -131,20 +131,34 @@ const updateRisk = async (req, res, next) => {
       return notFoundResponse(res, 'Risk');
     }
 
+    // Log the request body
+    logger.info(`Update request body: ${JSON.stringify(req.body)}`);
+    logger.info(`Current risk before update: prob=${risk.probability}, impact=${risk.impact}, score=${risk.risk_score}, level=${risk.risk_level}`);
+
     // Update fields explicitly to trigger validation hooks
     if (req.body.name !== undefined) risk.name = req.body.name;
     if (req.body.description !== undefined) risk.description = req.body.description;
     if (req.body.category !== undefined) risk.category = req.body.category;
-    if (req.body.probability !== undefined) risk.probability = req.body.probability;
-    if (req.body.impact !== undefined) risk.impact = req.body.impact;
+    if (req.body.probability !== undefined) {
+      risk.probability = req.body.probability;
+      logger.info(`Updated probability to: ${risk.probability}`);
+    }
+    if (req.body.impact !== undefined) {
+      risk.impact = req.body.impact;
+      logger.info(`Updated impact to: ${risk.impact}`);
+    }
     if (req.body.treatment_strategy !== undefined) risk.treatment_strategy = req.body.treatment_strategy;
     if (req.body.treatment_plan !== undefined) risk.treatment_plan = req.body.treatment_plan;
     if (req.body.status !== undefined) risk.status = req.body.status;
     if (req.body.residual_probability !== undefined) risk.residual_probability = req.body.residual_probability;
     if (req.body.residual_impact !== undefined) risk.residual_impact = req.body.residual_impact;
 
+    logger.info(`Risk before save: prob=${risk.probability}, impact=${risk.impact}, score=${risk.risk_score}, level=${risk.risk_level}`);
+
     // Force validation to recalculate risk_score and risk_level
     await risk.save({ validate: true });
+
+    logger.info(`Risk after save: prob=${risk.probability}, impact=${risk.impact}, score=${risk.risk_score}, level=${risk.risk_level}`);
 
     logger.info(`Risk updated: ${risk.id}`);
 
