@@ -1,0 +1,1357 @@
+===========================================
+EJEMPLOS DE DATOS PARA THREATMAP
+===========================================
+
+Este archivo contiene ejemplos realistas de amenazas, vulnerabilidades, riesgos y activos
+que puedes usar para poblar el sistema ThreatMap durante la demostración.
+
+===========================================
+AMENAZAS (THREATS)
+===========================================
+
+1. AMENAZA: Campaña de Phishing Dirigido
+   Tipo: Phishing
+   Severidad: High
+   Estado: Active
+   Descripción: Se ha detectado una campaña de phishing dirigido a empleados del departamento de finanzas. Los correos electrónicos falsifican comunicaciones internas y solicitan credenciales de acceso al sistema ERP.
+   Fuente: Email Security Gateway
+   Probabilidad: 0.75
+   Impacto: 8
+   Risk Score: 60.0
+   Estrategia de Mitigación: Implementar autenticación multifactor, realizar capacitación de concienciación en seguridad, configurar filtros anti-phishing avanzados.
+   Fecha de Detección: 2024-11-15
+
+2. AMENAZA: Ransomware LockBit 3.0
+   Tipo: Ransomware
+   Severidad: Critical
+   Estado: Monitoring
+   Descripción: Indicadores de compromiso asociados a LockBit 3.0 detectados en tráfico de red. El ransomware utiliza exploits de SMB y RDP para propagarse lateralmente.
+   Fuente: Threat Intelligence Feed
+   Probabilidad: 0.45
+   Impacto: 10
+   Risk Score: 45.0
+   Estrategia de Mitigación: Deshabilitar SMBv1, implementar segmentación de red, actualizar todos los endpoints con últimos parches, configurar backups inmutables.
+   Fecha de Detección: 2024-11-20
+
+3. AMENAZA: Ataque DDoS a Infraestructura Web
+   Tipo: DDoS
+   Severidad: High
+   Estado: Mitigated
+   Descripción: Ataque DDoS volumétrico tipo UDP flood dirigido a servidores web públicos. Tráfico de 15 Gbps desde botnet Mirai.
+   Fuente: Network Monitoring System
+   Probabilidad: 0.85
+   Impacto: 7
+   Risk Score: 59.5
+   Estrategia de Mitigación: Activar protección DDoS en CDN, implementar rate limiting, configurar listas negras en firewall.
+   Fecha de Detección: 2024-11-10
+   Fecha de Mitigación: 2024-11-11
+
+4. AMENAZA: Inyección SQL en Aplicación Web
+   Tipo: SQL Injection
+   Severidad: Critical
+   Estado: Active
+   Descripción: Intentos activos de SQL injection detectados en formularios de login de aplicación web de clientes. Atacante intenta extraer base de datos de usuarios.
+   Fuente: Web Application Firewall
+   Probabilidad: 0.90
+   Impacto: 9
+   Risk Score: 81.0
+   Estrategia de Mitigación: Implementar consultas parametrizadas, actualizar WAF rules, realizar auditoría de código, aplicar principio de mínimo privilegio en DB.
+   Fecha de Detección: 2024-11-25
+
+5. AMENAZA: Amenaza Interna - Exfiltración de Datos
+   Tipo: Insider Threat
+   Severidad: High
+   Estado: Active
+   Descripción: Comportamiento anómalo detectado en cuenta de empleado de TI. Acceso inusual a sistemas críticos fuera de horario laboral y transferencias de archivos grandes a servicios cloud externos.
+   Fuente: User Behavior Analytics
+   Probabilidad: 0.60
+   Impacto: 8
+   Risk Score: 48.0
+   Estrategia de Mitigación: Revisar logs de acceso, aplicar DLP policies, restringir acceso a datos sensibles, realizar investigación interna.
+   Fecha de Detección: 2024-11-22
+
+6. AMENAZA: Ataque de Fuerza Bruta SSH
+   Tipo: Brute Force
+   Severidad: Medium
+   Estado: Monitoring
+   Descripción: Múltiples intentos de autenticación SSH desde IPs en China y Rusia dirigidos a servidores Linux en DMZ.
+   Fuente: IDS/IPS
+   Probabilidad: 0.70
+   Impacto: 5
+   Risk Score: 35.0
+   Estrategia de Mitigación: Implementar fail2ban, usar autenticación por clave pública, cambiar puerto SSH, implementar VPN para acceso administrativo.
+   Fecha de Detección: 2024-11-18
+
+7. AMENAZA: Malware Banking Trojan
+   Tipo: Malware
+   Severidad: High
+   Estado: Mitigated
+   Descripción: Trojan bancario Emotet detectado en estación de trabajo del departamento de contabilidad. El malware intenta capturar credenciales bancarias y propagarse por email.
+   Fuente: Endpoint Detection and Response
+   Probabilidad: 0.55
+   Impacto: 7
+   Risk Score: 38.5
+   Estrategia de Mitigación: Aislar endpoint infectado, realizar análisis forense, restablecer credenciales comprometidas, actualizar firmas de antivirus.
+   Fecha de Detección: 2024-11-05
+   Fecha de Mitigación: 2024-11-06
+
+8. AMENAZA: Ingeniería Social - Pretexting
+   Tipo: Social Engineering
+   Severidad: Medium
+   Estado: Active
+   Descripción: Llamadas telefónicas fraudulentas haciéndose pasar por soporte técnico intentando obtener credenciales VPN de empleados remotos.
+   Fuente: User Reports
+   Probabilidad: 0.65
+   Impacto: 6
+   Risk Score: 39.0
+   Estrategia de Mitigación: Campaña de concientización, establecer protocolo de verificación de identidad, implementar autenticación multifactor obligatoria.
+   Fecha de Detección: 2024-11-12
+
+===========================================
+VULNERABILIDADES (VULNERABILITIES)
+===========================================
+
+1. VULNERABILIDAD: Log4Shell - Log4j RCE
+   CVE ID: CVE-2021-44228
+   Severidad: Critical
+   CVSS Score: 10.0
+   CVSS Vector: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:C/C:H/I:H/A:H
+   Descripción: Vulnerabilidad de ejecución remota de código en Apache Log4j 2. Permite a atacantes ejecutar código arbitrario mediante cadenas JNDI en mensajes de log.
+   Estado: Patched
+   Sistemas Afectados:
+     - Servidor de Aplicaciones Java (10.0.5.100)
+     - Servidor de Microservicios (10.0.5.110)
+     - Sistema de Analytics (10.0.5.120)
+   Exploit Disponible: Sí
+   Patch Disponible: Sí
+   Patch URL: https://logging.apache.org/log4j/2.x/security.html
+   Fecha de Descubrimiento: 2021-12-10
+   Fecha de Parcheo: 2024-01-15
+
+2. VULNERABILIDAD: Windows PrintNightmare
+   CVE ID: CVE-2021-34527
+   Severidad: High
+   CVSS Score: 8.8
+   CVSS Vector: CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H
+   Descripción: Vulnerabilidad de escalación de privilegios en Windows Print Spooler que permite ejecución remota de código con privilegios SYSTEM.
+   Estado: Patched
+   Sistemas Afectados:
+     - Servidores Windows Server 2019 (20 servidores)
+     - Estaciones de trabajo Windows 10 (150 equipos)
+   Exploit Disponible: Sí
+   Patch Disponible: Sí
+   Patch URL: https://msrc.microsoft.com/update-guide/vulnerability/CVE-2021-34527
+   Fecha de Descubrimiento: 2021-06-28
+   Fecha de Parcheo: 2024-02-01
+
+3. VULNERABILIDAD: ProxyShell - Exchange Server RCE
+   CVE ID: CVE-2021-34473
+   Severidad: Critical
+   CVSS Score: 9.8
+   CVSS Vector: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H
+   Descripción: Vulnerabilidad en Microsoft Exchange Server que permite ejecución remota de código sin autenticación. Parte de la cadena de exploits ProxyShell.
+   Estado: Patched
+   Sistemas Afectados:
+     - Servidor Exchange 2019 (mail.empresa.com)
+   Exploit Disponible: Sí
+   Patch Disponible: Sí
+   Patch URL: https://msrc.microsoft.com/update-guide/vulnerability/CVE-2021-34473
+   Fecha de Descubrimiento: 2021-04-13
+   Fecha de Parcheo: 2024-03-10
+
+4. VULNERABILIDAD: SQLi en Aplicación Web Interna
+   CVE ID: (Sin CVE - vulnerabilidad personalizada)
+   Severidad: High
+   CVSS Score: 8.6
+   CVSS Vector: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:L
+   Descripción: Inyección SQL en módulo de reportes de aplicación CRM interna. Permite acceso no autorizado a base de datos de clientes.
+   Estado: In Progress
+   Sistemas Afectados:
+     - Aplicación CRM Web (crm.interno.local)
+     - Base de datos PostgreSQL CRM
+   Exploit Disponible: No
+   Patch Disponible: No
+   Patch URL: (En desarrollo)
+   Fecha de Descubrimiento: 2024-11-20
+
+5. VULNERABILIDAD: WordPress Plugin RCE
+   CVE ID: CVE-2024-12345
+   Severidad: Critical
+   CVSS Score: 9.9
+   CVSS Vector: CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:C/C:H/I:H/A:H
+   Descripción: Vulnerabilidad de ejecución remota de código en plugin Contact Form 7 de WordPress. Permite upload de archivos maliciosos sin validación.
+   Estado: Open
+   Sistemas Afectados:
+     - Sitio web corporativo (www.empresa.com)
+     - Blog de marketing (blog.empresa.com)
+   Exploit Disponible: Sí
+   Patch Disponible: Sí
+   Patch URL: https://wordpress.org/plugins/contact-form-7/
+   Fecha de Descubrimiento: 2024-11-18
+
+6. VULNERABILIDAD: Credenciales por Defecto en Cámaras IP
+   CVE ID: (Sin CVE)
+   Severidad: High
+   CVSS Score: 8.0
+   CVSS Vector: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:L/A:L
+   Descripción: Cámaras de seguridad IP con credenciales por defecto (admin/admin) expuestas a Internet. Vulnerable a acceso no autorizado.
+   Estado: Open
+   Sistemas Afectados:
+     - 15 Cámaras IP Hikvision
+     - 8 Cámaras IP Dahua
+   Exploit Disponible: No (Conocimiento público)
+   Patch Disponible: No (Requiere reconfiguración manual)
+   Fecha de Descubrimiento: 2024-11-22
+
+7. VULNERABILIDAD: OpenSSL Heartbleed
+   CVE ID: CVE-2014-0160
+   Severidad: High
+   CVSS Score: 7.5
+   CVSS Vector: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N
+   Descripción: Vulnerabilidad de fuga de memoria en OpenSSL. Permite a atacantes leer hasta 64KB de memoria del servidor, potencialmente exponiendo claves privadas.
+   Estado: Accepted
+   Sistemas Afectados:
+     - Servidor legacy de archivos (fileserver-old.local) - Sistema no parcheable por EOL
+   Exploit Disponible: Sí
+   Patch Disponible: Sí
+   Patch URL: https://www.openssl.org/news/secadv/20140407.txt
+   Fecha de Descubrimiento: 2014-04-07
+
+8. VULNERABILIDAD: Configuración Insegura - Anonymous FTP
+   CVE ID: (Sin CVE)
+   Severidad: Medium
+   CVSS Score: 6.5
+   CVSS Vector: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:L/A:N
+   Descripción: Servidor FTP con acceso anónimo habilitado expuesto a Internet. Permite descarga de archivos sin autenticación.
+   Estado: In Progress
+   Sistemas Afectados:
+     - Servidor FTP de archivos públicos (ftp.empresa.com)
+   Exploit Disponible: No
+   Patch Disponible: No (Requiere reconfiguración)
+   Fecha de Descubrimiento: 2024-11-15
+
+===========================================
+RIESGOS (RISKS)
+===========================================
+
+1. RIESGO: Compromiso de Base de Datos de Clientes
+   Categoría: Technical
+   Descripción: Riesgo de exfiltración de datos sensibles de clientes debido a vulnerabilidad SQLi en aplicación CRM y amenaza activa de SQL injection.
+   Probabilidad: 0.75
+   Impacto: 9
+   Risk Score: 67.5
+   Risk Level: Critical
+   Estado: Treating
+   Amenaza Relacionada: Inyección SQL en Aplicación Web
+   Vulnerabilidad Relacionada: SQLi en Aplicación Web Interna
+   Estrategia de Tratamiento: Mitigate
+   Plan de Tratamiento:
+     1. Parche de emergencia de aplicación CRM
+     2. Implementar WAF con reglas anti-SQLi
+     3. Realizar auditoría completa de código
+     4. Implementar consultas parametrizadas
+     5. Monitoreo continuo de logs de base de datos
+   Probabilidad Residual: 0.15
+   Impacto Residual: 9
+   Residual Risk Score: 13.5
+
+2. RIESGO: Interrupción de Servicios por Ransomware
+   Categoría: Operational
+   Descripción: Riesgo de cifrado de sistemas críticos y paralización de operaciones debido a ransomware LockBit con impacto en disponibilidad del negocio.
+   Probabilidad: 0.50
+   Impacto: 10
+   Risk Score: 50.0
+   Risk Level: Critical
+   Estado: Treating
+   Amenaza Relacionada: Ransomware LockBit 3.0
+   Estrategia de Tratamiento: Mitigate
+   Plan de Tratamiento:
+     1. Implementar segmentación de red avanzada
+     2. Deshabilitar protocolos SMBv1 en toda la red
+     3. Configurar backups 3-2-1 con copias inmutables
+     4. Actualizar todos los endpoints con últimos parches
+     5. Implementar EDR en todos los servidores críticos
+     6. Realizar simulacros de recuperación ante desastres
+   Probabilidad Residual: 0.10
+   Impacto Residual: 10
+   Residual Risk Score: 10.0
+
+3. RIESGO: Pérdida de Datos por Amenaza Interna
+   Categoría: Reputational
+   Descripción: Riesgo de exfiltración de información confidencial de la empresa por parte de empleado malicioso con impacto reputacional y legal.
+   Probabilidad: 0.60
+   Impacto: 8
+   Risk Score: 48.0
+   Risk Level: High
+   Estado: Analyzing
+   Amenaza Relacionada: Amenaza Interna - Exfiltración de Datos
+   Estrategia de Tratamiento: Mitigate
+   Plan de Tratamiento:
+     1. Investigación forense completa de actividad del empleado
+     2. Implementar DLP (Data Loss Prevention) en endpoints
+     3. Restricción de acceso a datos sensibles por rol
+     4. Monitoreo de transferencias de archivos grandes
+     5. Revisión de políticas de seguridad de RRHH
+     6. Capacitación en ética y políticas de uso aceptable
+   Probabilidad Residual: 0.20
+   Impacto Residual: 8
+   Residual Risk Score: 16.0
+
+4. RIESGO: Compromiso de Credenciales por Phishing
+   Categoría: Technical
+   Descripción: Riesgo de robo de credenciales corporativas debido a campaña de phishing dirigido con acceso no autorizado a sistemas internos.
+   Probabilidad: 0.80
+   Impacto: 7
+   Risk Score: 56.0
+   Risk Level: High
+   Estado: Treating
+   Amenaza Relacionada: Campaña de Phishing Dirigido
+   Estrategia de Tratamiento: Mitigate
+   Plan de Tratamiento:
+     1. Implementar autenticación multifactor en todos los sistemas
+     2. Desplegar filtros anti-phishing avanzados en email gateway
+     3. Campaña intensiva de concienciación en seguridad
+     4. Simulacros de phishing periódicos
+     5. Implementar solución de password manager corporativo
+     6. Rotación forzada de contraseñas cada 90 días
+   Probabilidad Residual: 0.25
+   Impacto Residual: 7
+   Residual Risk Score: 17.5
+
+5. RIESGO: Exposición de Servicios Críticos a Internet
+   Categoría: Technical
+   Descripción: Riesgo de compromiso de servidores con vulnerabilidades críticas sin parchear expuestos directamente a Internet.
+   Probabilidad: 0.70
+   Impacto: 9
+   Risk Score: 63.0
+   Risk Level: Critical
+   Estado: Identified
+   Vulnerabilidad Relacionada: WordPress Plugin RCE
+   Estrategia de Tratamiento: Mitigate
+   Plan de Tratamiento:
+     1. Actualizar inmediatamente WordPress y todos los plugins
+     2. Implementar WAF delante de aplicaciones web públicas
+     3. Realizar escaneo de vulnerabilidades semanal
+     4. Configurar IDS/IPS para detectar intentos de exploit
+     5. Revisar arquitectura de DMZ
+     6. Implementar reverse proxy con filtrado de contenido
+   Probabilidad Residual: 0.20
+   Impacto Residual: 9
+   Residual Risk Score: 18.0
+
+6. RIESGO: Incumplimiento Regulatorio por Fuga de Datos
+   Categoría: Compliance
+   Descripción: Riesgo de multas y sanciones por violación de GDPR/LOPD debido a exposición de datos personales de clientes por vulnerabilidades no corregidas.
+   Probabilidad: 0.40
+   Impacto: 9
+   Risk Score: 36.0
+   Risk Level: High
+   Estado: Identified
+   Estrategia de Tratamiento: Mitigate
+   Plan de Tratamiento:
+     1. Auditoría de cumplimiento GDPR completa
+     2. Implementar cifrado de datos personales en reposo
+     3. Implementar cifrado en tránsito (TLS 1.3)
+     4. Desarrollar plan de respuesta a incidentes de datos
+     5. Contratar seguro de ciberseguridad
+     6. Realizar DPIA (Data Protection Impact Assessment)
+   Probabilidad Residual: 0.15
+   Impacto Residual: 9
+   Residual Risk Score: 13.5
+
+7. RIESGO: Acceso No Autorizado a Sistemas Legacy
+   Categoría: Technical
+   Descripción: Riesgo de compromiso de sistemas legacy con vulnerabilidades conocidas sin posibilidad de parcheo debido a EOL del fabricante.
+   Probabilidad: 0.55
+   Impacto: 6
+   Risk Score: 33.0
+   Risk Level: Medium
+   Estado: Monitoring
+   Vulnerabilidad Relacionada: OpenSSL Heartbleed
+   Estrategia de Tratamiento: Accept
+   Plan de Tratamiento:
+     1. Aislar sistema legacy en VLAN segregada
+     2. Implementar firewall con reglas restrictivas
+     3. Monitoreo 24/7 de logs y accesos
+     4. Planificar migración a sistema moderno (plazo: 18 meses)
+     5. Documentar riesgo aceptado por dirección
+     6. Revisión trimestral del nivel de riesgo
+
+8. RIESGO: Degradación de Servicio por DDoS
+   Categoría: Operational
+   Descripción: Riesgo de indisponibilidad de servicios web y pérdida de ingresos por ataques DDoS volumétricos a infraestructura pública.
+   Probabilidad: 0.85
+   Impacto: 6
+   Risk Score: 51.0
+   Risk Level: High
+   Estado: Mitigated
+   Amenaza Relacionada: Ataque DDoS a Infraestructura Web
+   Estrategia de Tratamiento: Transfer
+   Plan de Tratamiento:
+     1. Contratación de CDN con protección DDoS (Cloudflare/Akamai)
+     2. Implementar rate limiting en aplicaciones
+     3. Configurar auto-scaling en cloud
+     4. Establecer plan de comunicación durante incidentes
+     5. Realizar pruebas de estrés trimestrales
+   Probabilidad Residual: 0.20
+   Impacto Residual: 3
+   Residual Risk Score: 6.0
+
+===========================================
+ACTIVOS (ASSETS) - SUPERFICIE DE ATAQUE
+===========================================
+
+1. ACTIVO: Servidor Web Principal
+   Nombre: web-prod-01
+   Tipo: Server
+   IP Address: 203.0.113.10
+   Hostname: www.empresa.com
+   OS: Ubuntu 22.04 LTS
+   Ubicación: Datacenter Principal - Rack A15
+   Criticidad: Critical
+   Nivel de Exposición: Public
+   Puertos Abiertos: 80,443
+   Servicios: HTTP,HTTPS,Nginx
+   Estado: Active
+   Expuesto Públicamente: Sí
+   Tags: producción,web,crítico,dmz
+   Owner: Equipo DevOps
+   Notas: Servidor web principal con aplicación e-commerce. Requiere disponibilidad 99.9%. Backup diario a las 02:00 AM.
+   Conexiones: load-balancer-01, db-prod-01
+
+2. ACTIVO: Base de Datos PostgreSQL Producción
+   Nombre: db-prod-01
+   Tipo: Database
+   IP Address: 10.0.5.50
+   Hostname: postgres-primary.interno.local
+   OS: Red Hat Enterprise Linux 8
+   Ubicación: Datacenter Principal - Rack B20
+   Criticidad: Critical
+   Nivel de Exposición: Internal
+   Puertos Abiertos: 5432
+   Servicios: PostgreSQL 15
+   Estado: Active
+   Expuesto Públicamente: No
+   Tags: producción,database,crítico,pci-dss
+   Owner: Equipo DBA
+   Notas: Base de datos principal de aplicación. Contiene datos sensibles de clientes. Cifrado TDE habilitado. Replicación a db-prod-02.
+   Conexiones: web-prod-01, api-gateway-01, db-prod-02
+
+3. ACTIVO: Load Balancer Principal
+   Nombre: load-balancer-01
+   Tipo: Load Balancer
+   IP Address: 203.0.113.5
+   Hostname: lb.empresa.com
+   OS: HAProxy Appliance
+   Ubicación: Datacenter Principal - Rack A10
+   Criticidad: High
+   Nivel de Exposición: Public
+   Puertos Abiertos: 80,443,8080
+   Servicios: HAProxy,SSL Termination
+   Estado: Active
+   Expuesto Públicamente: Sí
+   Tags: producción,networking,balanceador
+   Owner: Equipo de Redes
+   Notas: Balanceador de carga para servidores web. Configuración activo-pasivo con lb-02.
+   Conexiones: web-prod-01, web-prod-02, firewall-dmz-01
+
+4. ACTIVO: Firewall DMZ
+   Nombre: firewall-dmz-01
+   Tipo: Firewall
+   IP Address: 203.0.113.1
+   Hostname: fw-dmz.empresa.com
+   OS: Palo Alto PAN-OS 11.0
+   Ubicación: Datacenter Principal - Rack A01
+   Criticidad: Critical
+   Nivel de Exposición: Public
+   Puertos Abiertos: Todos (firewall)
+   Servicios: Firewall,IDS/IPS,VPN
+   Estado: Active
+   Expuesto Públicamente: Sí
+   Tags: seguridad,firewall,crítico,perimetro
+   Owner: Equipo de Seguridad
+   Notas: Firewall perimetral. Protege DMZ y red interna. IPS habilitado. Logs enviados a SIEM.
+   Conexiones: load-balancer-01, router-core-01
+
+5. ACTIVO: Servidor de Aplicaciones Java
+   Nombre: app-java-prod-01
+   Tipo: Application
+   IP Address: 10.0.5.100
+   Hostname: javaapp.interno.local
+   OS: CentOS 7
+   Ubicación: Datacenter Principal - Rack B15
+   Criticidad: High
+   Nivel de Exposición: Internal
+   Puertos Abiertos: 8080,8443
+   Servicios: Tomcat 9,JDK 11
+   Estado: Active
+   Expuesto Públicamente: No
+   Tags: producción,java,aplicación,afectado-log4j
+   Owner: Equipo de Desarrollo
+   Notas: Servidor de aplicaciones con Apache Log4j vulnerable (CVE-2021-44228). Parcheo programado para próximo mantenimiento.
+   Conexiones: api-gateway-01, db-prod-01
+
+6. ACTIVO: Servidor Exchange
+   Nombre: exchange-01
+   Tipo: Server
+   IP Address: 10.0.10.20
+   Hostname: mail.empresa.com
+   OS: Windows Server 2019
+   Ubicación: Datacenter Principal - Rack C10
+   Criticidad: High
+   Nivel de Exposición: DMZ
+   Puertos Abiertos: 25,80,443,587,993,995
+   Servicios: Exchange Server 2019,SMTP,IMAP,POP3
+   Estado: Active
+   Expuesto Públicamente: Sí
+   Tags: producción,email,exchange,vulnerable-proxyshell
+   Owner: Equipo de Infraestructura
+   Notas: Servidor de correo corporativo. Vulnerable a ProxyShell (CVE-2021-34473). Parche aplicado en marzo 2024.
+   Conexiones: firewall-dmz-01, ad-dc-01
+
+7. ACTIVO: Controlador de Dominio Active Directory
+   Nombre: ad-dc-01
+   Tipo: Server
+   IP Address: 10.0.10.10
+   Hostname: dc01.interno.local
+   OS: Windows Server 2022
+   Ubicación: Datacenter Principal - Rack C05
+   Criticidad: Critical
+   Nivel de Exposición: Internal
+   Puertos Abiertos: 53,88,135,139,389,445,464,636,3268,3269
+   Servicios: Active Directory,DNS,LDAP,Kerberos
+   Estado: Active
+   Expuesto Públicamente: No
+   Tags: producción,active-directory,crítico,identidad
+   Owner: Equipo de Infraestructura
+   Notas: Controlador de dominio principal. Autenticación centralizada. Backup completo diario. Replicación con ad-dc-02.
+   Conexiones: ad-dc-02, exchange-01, todos los servidores Windows
+
+8. ACTIVO: Estación de Trabajo - Finanzas
+   Nombre: ws-finanzas-15
+   Tipo: Workstation
+   IP Address: 10.0.20.115
+   Hostname: WS-FIN-015
+   OS: Windows 10 Pro 22H2
+   Ubicación: Oficina Central - Piso 3
+   Criticidad: Medium
+   Nivel de Exposición: Internal
+   Puertos Abiertos: 445,3389
+   Servicios: SMB,RDP
+   Estado: Active
+   Expuesto Públicamente: No
+   Tags: endpoint,finanzas,objetivo-phishing
+   Owner: Departamento de Finanzas
+   Notas: Workstation de empleado de finanzas. Objetivo de campaña de phishing. EDR instalado. BitLocker habilitado.
+   Conexiones: ad-dc-01, file-server-01
+
+9. ACTIVO: Servidor FTP Público
+   Nombre: ftp-public-01
+   Tipo: Server
+   IP Address: 203.0.113.30
+   Hostname: ftp.empresa.com
+   OS: Debian 11
+   Ubicación: Datacenter Principal - Rack D05
+   Criticidad: Low
+   Nivel de Exposición: Public
+   Puertos Abiertos: 20,21,22
+   Servicios: vsftpd,SSH
+   Estado: Active
+   Expuesto Públicamente: Sí
+   Tags: ftp,público,configuración-insegura
+   Owner: Equipo de Operaciones
+   Notas: Servidor FTP con acceso anónimo habilitado. Configuración insegura detectada. Programado para desactivar anónimo.
+   Conexiones: firewall-dmz-01
+
+10. ACTIVO: API Gateway
+    Nombre: api-gateway-01
+    Tipo: API
+    IP Address: 10.0.5.200
+    Hostname: api.interno.local
+    OS: Ubuntu 22.04 LTS
+    Ubicación: Datacenter Principal - Rack B25
+    Criticidad: High
+    Nivel de Exposición: DMZ
+    Puertos Abiertos: 443,8443
+    Servicios: Kong Gateway,OAuth2
+    Estado: Active
+    Expuesto Públicamente: Sí
+    Tags: producción,api,microservicios
+    Owner: Equipo de Arquitectura
+    Notas: Gateway para microservicios internos. Rate limiting configurado. JWT authentication habilitada.
+    Conexiones: web-prod-01, app-java-prod-01, db-prod-01
+
+11. ACTIVO: Cámaras IP de Seguridad
+    Nombre: ipcam-entrance-01
+    Tipo: IoT Device
+    IP Address: 10.0.30.50
+    Hostname: camera-entrance.local
+    OS: Embedded Linux (Hikvision)
+    Ubicación: Edificio Principal - Entrada
+    Criticidad: Low
+    Nivel de Exposición: Internal
+    Puertos Abiertos: 80,554,8000
+    Servicios: HTTP,RTSP
+    Estado: Active
+    Expuesto Públicamente: No
+    Tags: iot,seguridad-física,credenciales-defecto
+    Owner: Equipo de Seguridad Física
+    Notas: Cámara IP con credenciales por defecto (admin/admin). VLAN de IoT segregada. Firmware desactualizado.
+    Conexiones: nvr-01
+
+12. ACTIVO: Servidor NVR (Video Recorder)
+    Nombre: nvr-01
+    Tipo: Server
+    IP Address: 10.0.30.10
+    Hostname: nvr.local
+    OS: Embedded Linux
+    Ubicación: Sala de Servidores - Rack D10
+    Criticidad: Low
+    Nivel de Exposición: Isolated
+    Puertos Abiertos: 80,9000
+    Servicios: NVR Software
+    Estado: Active
+    Expuesto Públicamente: No
+    Tags: iot,video,grabación
+    Owner: Equipo de Seguridad Física
+    Notas: Grabador de video de red. Almacenamiento de 30 días. Red aislada de producción.
+    Conexiones: ipcam-entrance-01, (+ 14 cámaras más)
+
+13. ACTIVO: Servidor de Desarrollo
+    Nombre: dev-sandbox-01
+    Tipo: Server
+    IP Address: 10.0.100.50
+    Hostname: dev.interno.local
+    OS: Ubuntu 20.04 LTS
+    Ubicación: Datacenter Principal - Rack E10
+    Criticidad: Low
+    Nivel de Exposición: Internal
+    Puertos Abiertos: 22,80,443,3000,8080
+    Servicios: Docker,Node.js,Python,MySQL
+    Estado: Active
+    Expuesto Públicamente: No
+    Tags: desarrollo,sandbox,no-producción
+    Owner: Equipo de Desarrollo
+    Notas: Servidor de desarrollo compartido. No contiene datos de producción. Backup semanal.
+    Conexiones: (ninguna crítica)
+
+14. ACTIVO: VPN Gateway
+    Nombre: vpn-gateway-01
+    Tipo: Network Device
+    IP Address: 203.0.113.100
+    Hostname: vpn.empresa.com
+    OS: Cisco IOS
+    Ubicación: Datacenter Principal - Rack A05
+    Criticidad: High
+    Nivel de Exposición: Public
+    Puertos Abiertos: 443,500,4500
+    Servicios: SSL VPN,IPSec
+    Estado: Active
+    Expuesto Públicamente: Sí
+    Tags: vpn,acceso-remoto,mfa-habilitado
+    Owner: Equipo de Redes
+    Notas: VPN para empleados remotos. MFA obligatorio desde noviembre 2024. Logs centralizados en SIEM.
+    Conexiones: firewall-dmz-01, ad-dc-01
+
+15. ACTIVO: Servidor de Archivos Legacy
+    Nombre: fileserver-old
+    Tipo: Server
+    IP Address: 10.0.15.50
+    Hostname: fileserver-old.local
+    OS: Windows Server 2008 R2 (EOL)
+    Ubicación: Datacenter Principal - Rack C15
+    Criticidad: Medium
+    Nivel de Exposición: Internal
+    Puertos Abiertos: 139,445
+    Servicios: SMB,CIFS
+    Estado: Maintenance
+    Expuesto Públicamente: No
+    Tags: legacy,eol,vulnerable-heartbleed,deprecado
+    Owner: Equipo de Infraestructura
+    Notas: Servidor legacy con OpenSSL vulnerable (Heartbleed). EOL alcanzado. Migración planificada Q1 2025. Acceso restringido.
+    Conexiones: ad-dc-01
+
+===========================================
+EJEMPLOS PASO A PASO PARA CREAR ACTIVOS
+===========================================
+
+A continuación se muestran ejemplos detallados de cómo llenar el formulario
+"Nuevo Activo" en la interfaz de Superficie de Ataque:
+
+---
+EJEMPLO 1: Crear Servidor Web de Producción
+---
+
+Paso 1: Hacer clic en "Nuevo Activo"
+Paso 2: Llenar el formulario con los siguientes datos:
+
+Campo: Nombre
+Valor: web-prod-01
+
+Campo: Tipo
+Seleccionar: Server
+
+Campo: Dirección IP
+Valor: 203.0.113.10
+
+Campo: Hostname
+Valor: www.empresa.com
+
+Campo: Sistema Operativo
+Valor: Ubuntu 22.04 LTS
+
+Campo: Ubicación
+Valor: Datacenter Principal - Rack A15
+
+Campo: Criticidad
+Seleccionar: Critical
+
+Campo: Nivel de Exposición
+Seleccionar: Public
+
+Campo: Puertos Abiertos (separados por comas)
+Valor: 80,443
+
+Campo: Servicios (separados por comas)
+Valor: HTTP,HTTPS,Nginx
+
+Campo: Propietario
+Valor: Equipo DevOps
+
+Campo: Estado
+Seleccionar: Active
+
+Campo: Expuesto Públicamente (checkbox)
+Marcar: ✓ (Sí)
+
+Campo: Descripción
+Valor: Servidor web de producción que aloja la aplicación principal de e-commerce de la empresa
+
+Campo: Tags (separados por comas)
+Valor: producción,web,crítico,dmz
+
+Campo: Conexiones (selección múltiple)
+Seleccionar: (dejar vacío por ahora, se puede configurar después)
+
+Campo: Notas
+Valor: Servidor web principal con aplicación e-commerce. Requiere disponibilidad 99.9%. Backup diario a las 02:00 AM.
+
+Paso 3: Hacer clic en "Crear"
+Resultado: Aparecerá un nodo ROJO (Critical) en el mapa con borde grueso rojo (público)
+
+---
+EJEMPLO 2: Crear Base de Datos Interna
+---
+
+Campo: Nombre
+Valor: db-prod-01
+
+Campo: Tipo
+Seleccionar: Database
+
+Campo: Dirección IP
+Valor: 10.0.5.50
+
+Campo: Hostname
+Valor: postgres-primary.interno.local
+
+Campo: Sistema Operativo
+Valor: Red Hat Enterprise Linux 8
+
+Campo: Ubicación
+Valor: Datacenter Principal - Rack B20
+
+Campo: Criticidad
+Seleccionar: Critical
+
+Campo: Nivel de Exposición
+Seleccionar: Internal
+
+Campo: Puertos Abiertos
+Valor: 5432
+
+Campo: Servicios
+Valor: PostgreSQL 15
+
+Campo: Propietario
+Valor: Equipo DBA
+
+Campo: Estado
+Seleccionar: Active
+
+Campo: Expuesto Públicamente
+Marcar: ☐ (No)
+
+Campo: Descripción
+Valor: Base de datos PostgreSQL principal que almacena información crítica de clientes y transacciones
+
+Campo: Tags
+Valor: producción,database,crítico,pci-dss
+
+Campo: Conexiones
+Seleccionar: web-prod-01 (si ya fue creado)
+
+Campo: Notas
+Valor: Base de datos principal de aplicación. Contiene datos sensibles de clientes. Cifrado TDE habilitado.
+
+Resultado: Nodo ROJO (Critical) sin borde grueso (interno), conectado a web-prod-01
+
+---
+EJEMPLO 3: Crear Firewall DMZ
+---
+
+Campo: Nombre
+Valor: firewall-dmz-01
+
+Campo: Tipo
+Seleccionar: Firewall
+
+Campo: Dirección IP
+Valor: 203.0.113.1
+
+Campo: Hostname
+Valor: fw-dmz.empresa.com
+
+Campo: Sistema Operativo
+Valor: Palo Alto PAN-OS 11.0
+
+Campo: Ubicación
+Valor: Datacenter Principal - Rack A01
+
+Campo: Criticidad
+Seleccionar: Critical
+
+Campo: Nivel de Exposición
+Seleccionar: Public
+
+Campo: Puertos Abiertos
+Valor: (dejar vacío - es firewall)
+
+Campo: Servicios
+Valor: Firewall,IDS/IPS,VPN
+
+Campo: Propietario
+Valor: Equipo de Seguridad
+
+Campo: Estado
+Seleccionar: Active
+
+Campo: Expuesto Públicamente
+Marcar: ✓ (Sí)
+
+Campo: Descripción
+Valor: Firewall perimetral de última generación que protege la DMZ y segmenta la red interna
+
+Campo: Tags
+Valor: seguridad,firewall,crítico,perimetro
+
+Campo: Conexiones
+Seleccionar: web-prod-01
+
+Campo: Notas
+Valor: Firewall perimetral. Protege DMZ y red interna. IPS habilitado. Logs enviados a SIEM.
+
+Resultado: Nodo ROJO con borde grueso, letra "F" en el centro
+
+---
+EJEMPLO 4: Crear Estación de Trabajo
+---
+
+Campo: Nombre
+Valor: ws-finanzas-15
+
+Campo: Tipo
+Seleccionar: Workstation
+
+Campo: Dirección IP
+Valor: 10.0.20.115
+
+Campo: Hostname
+Valor: WS-FIN-015
+
+Campo: Sistema Operativo
+Valor: Windows 10 Pro 22H2
+
+Campo: Ubicación
+Valor: Oficina Central - Piso 3
+
+Campo: Criticidad
+Seleccionar: Medium
+
+Campo: Nivel de Exposición
+Seleccionar: Internal
+
+Campo: Puertos Abiertos
+Valor: 445,3389
+
+Campo: Servicios
+Valor: SMB,RDP
+
+Campo: Propietario
+Valor: Departamento de Finanzas
+
+Campo: Estado
+Seleccionar: Active
+
+Campo: Expuesto Públicamente
+Marcar: ☐ (No)
+
+Campo: Descripción
+Valor: Estación de trabajo del departamento de finanzas utilizada para procesamiento de pagos y reportes contables
+
+Campo: Tags
+Valor: endpoint,finanzas,objetivo-phishing
+
+Campo: Notas
+Valor: Workstation de empleado de finanzas. Objetivo de campaña de phishing. EDR instalado.
+
+Resultado: Nodo AMARILLO (Medium) con letra "W"
+
+---
+EJEMPLO 5: Crear API Gateway
+---
+
+Campo: Nombre
+Valor: api-gateway-01
+
+Campo: Tipo
+Seleccionar: API
+
+Campo: Dirección IP
+Valor: 10.0.5.200
+
+Campo: Hostname
+Valor: api.interno.local
+
+Campo: Sistema Operativo
+Valor: Ubuntu 22.04 LTS
+
+Campo: Ubicación
+Valor: Datacenter Principal - Rack B25
+
+Campo: Criticidad
+Seleccionar: High
+
+Campo: Nivel de Exposición
+Seleccionar: DMZ
+
+Campo: Puertos Abiertos
+Valor: 443,8443
+
+Campo: Servicios
+Valor: Kong Gateway,OAuth2
+
+Campo: Propietario
+Valor: Equipo de Arquitectura
+
+Campo: Estado
+Seleccionar: Active
+
+Campo: Expuesto Públicamente
+Marcar: ✓ (Sí)
+
+Campo: Descripción
+Valor: Gateway de API que gestiona autenticación, rate limiting y routing para arquitectura de microservicios
+
+Campo: Tags
+Valor: producción,api,microservicios
+
+Campo: Conexiones
+Seleccionar: web-prod-01, db-prod-01
+
+Campo: Notas
+Valor: Gateway para microservicios internos. Rate limiting configurado. JWT authentication habilitada.
+
+Resultado: Nodo NARANJA (High) con borde rojo grueso, texto "API"
+
+---
+EJEMPLO 6: Crear Dispositivo IoT (Cámara IP)
+---
+
+Campo: Nombre
+Valor: ipcam-entrance-01
+
+Campo: Tipo
+Seleccionar: IoT Device
+
+Campo: Dirección IP
+Valor: 10.0.30.50
+
+Campo: Hostname
+Valor: camera-entrance.local
+
+Campo: Sistema Operativo
+Valor: Embedded Linux (Hikvision)
+
+Campo: Ubicación
+Valor: Edificio Principal - Entrada
+
+Campo: Criticidad
+Seleccionar: Low
+
+Campo: Nivel de Exposición
+Seleccionar: Internal
+
+Campo: Puertos Abiertos
+Valor: 80,554,8000
+
+Campo: Servicios
+Valor: HTTP,RTSP
+
+Campo: Propietario
+Valor: Equipo de Seguridad Física
+
+Campo: Estado
+Seleccionar: Active
+
+Campo: Expuesto Públicamente
+Marcar: ☐ (No)
+
+Campo: Descripción
+Valor: Cámara IP de seguridad física que monitorea entrada principal del edificio corporativo
+
+Campo: Tags
+Valor: iot,seguridad-física,credenciales-defecto
+
+Campo: Notas
+Valor: Cámara IP con credenciales por defecto (admin/admin). VLAN de IoT segregada. Firmware desactualizado.
+
+Resultado: Nodo VERDE (Low) con letra "I"
+
+---
+EJEMPLO 7: Crear Servidor Legacy Vulnerable
+---
+
+Campo: Nombre
+Valor: fileserver-old
+
+Campo: Tipo
+Seleccionar: Server
+
+Campo: Dirección IP
+Valor: 10.0.15.50
+
+Campo: Hostname
+Valor: fileserver-old.local
+
+Campo: Sistema Operativo
+Valor: Windows Server 2008 R2 (EOL)
+
+Campo: Ubicación
+Valor: Datacenter Principal - Rack C15
+
+Campo: Criticidad
+Seleccionar: Medium
+
+Campo: Nivel de Exposición
+Seleccionar: Internal
+
+Campo: Puertos Abiertos
+Valor: 139,445
+
+Campo: Servicios
+Valor: SMB,CIFS
+
+Campo: Propietario
+Valor: Equipo de Infraestructura
+
+Campo: Estado
+Seleccionar: Maintenance
+
+Campo: Expuesto Públicamente
+Marcar: ☐ (No)
+
+Campo: Descripción
+Valor: Servidor de archivos legacy con sistema operativo sin soporte que requiere migración urgente
+
+Campo: Tags
+Valor: legacy,eol,vulnerable-heartbleed,deprecado
+
+Campo: Notas
+Valor: Servidor legacy con OpenSSL vulnerable (Heartbleed). EOL alcanzado. Migración planificada Q1 2025. Acceso restringido.
+
+Resultado: Nodo AMARILLO en estado de mantenimiento
+
+---
+EJEMPLO 8: Crear Load Balancer
+---
+
+Campo: Nombre
+Valor: load-balancer-01
+
+Campo: Tipo
+Seleccionar: Load Balancer
+
+Campo: Dirección IP
+Valor: 203.0.113.5
+
+Campo: Hostname
+Valor: lb.empresa.com
+
+Campo: Sistema Operativo
+Valor: HAProxy Appliance
+
+Campo: Ubicación
+Valor: Datacenter Principal - Rack A10
+
+Campo: Criticidad
+Seleccionar: High
+
+Campo: Nivel de Exposición
+Seleccionar: Public
+
+Campo: Puertos Abiertos
+Valor: 80,443,8080
+
+Campo: Servicios
+Valor: HAProxy,SSL Termination
+
+Campo: Propietario
+Valor: Equipo de Redes
+
+Campo: Estado
+Seleccionar: Active
+
+Campo: Expuesto Públicamente
+Marcar: ✓ (Sí)
+
+Campo: Descripción
+Valor: Balanceador de carga principal que distribuye tráfico entre servidores web de producción
+
+Campo: Tags
+Valor: producción,networking,balanceador
+
+Campo: Conexiones
+Seleccionar: web-prod-01, firewall-dmz-01
+
+Campo: Notas
+Valor: Balanceador de carga para servidores web. Configuración activo-pasivo.
+
+Resultado: Nodo NARANJA con borde rojo, texto "LB"
+
+---
+EJEMPLO 9: Crear Servidor VPN
+---
+
+Campo: Nombre
+Valor: vpn-gateway-01
+
+Campo: Tipo
+Seleccionar: Network Device
+
+Campo: Dirección IP
+Valor: 203.0.113.100
+
+Campo: Hostname
+Valor: vpn.empresa.com
+
+Campo: Sistema Operativo
+Valor: Cisco IOS
+
+Campo: Ubicación
+Valor: Datacenter Principal - Rack A05
+
+Campo: Criticidad
+Seleccionar: High
+
+Campo: Nivel de Exposición
+Seleccionar: Public
+
+Campo: Puertos Abiertos
+Valor: 443,500,4500
+
+Campo: Servicios
+Valor: SSL VPN,IPSec
+
+Campo: Propietario
+Valor: Equipo de Redes
+
+Campo: Estado
+Seleccionar: Active
+
+Campo: Expuesto Públicamente
+Marcar: ✓ (Sí)
+
+Campo: Descripción
+Valor: Gateway VPN empresarial para acceso remoto seguro con autenticación multifactor obligatoria
+
+Campo: Tags
+Valor: vpn,acceso-remoto,mfa-habilitado
+
+Campo: Notas
+Valor: VPN para empleados remotos. MFA obligatorio desde noviembre 2024. Logs centralizados en SIEM.
+
+Resultado: Nodo NARANJA con borde rojo, letra "N"
+
+---
+EJEMPLO 10: Crear Aplicación Cloud
+---
+
+Campo: Nombre
+Valor: aws-s3-backups
+
+Campo: Tipo
+Seleccionar: Cloud Service
+
+Campo: Dirección IP
+Valor: (dejar vacío - es servicio cloud)
+
+Campo: Hostname
+Valor: backups.s3.amazonaws.com
+
+Campo: Sistema Operativo
+Valor: AWS S3
+
+Campo: Ubicación
+Valor: AWS us-east-1
+
+Campo: Criticidad
+Seleccionar: High
+
+Campo: Nivel de Exposición
+Seleccionar: Public
+
+Campo: Puertos Abiertos
+Valor: 443
+
+Campo: Servicios
+Valor: S3,Object Storage
+
+Campo: Propietario
+Valor: Equipo DevOps
+
+Campo: Estado
+Seleccionar: Active
+
+Campo: Expuesto Públicamente
+Marcar: ✓ (Sí)
+
+Campo: Descripción
+Valor: Servicio de almacenamiento en nube AWS S3 utilizado para respaldos automatizados de bases de datos
+
+Campo: Tags
+Valor: cloud,aws,backups,s3
+
+Campo: Conexiones
+Seleccionar: db-prod-01
+
+Campo: Notas
+Valor: Bucket S3 para backups de bases de datos. Versionado habilitado. Cifrado SSE-S3. Lifecycle policy 90 días.
+
+Resultado: Nodo NARANJA con borde rojo, letra "C"
+
+===========================================
+CONSEJOS PARA LA DEMOSTRACIÓN DE ACTIVOS
+===========================================
+
+1. ORDEN RECOMENDADO DE CREACIÓN:
+   - Primero: Firewall (perímetro)
+   - Segundo: Load Balancer
+   - Tercero: Servidor Web
+   - Cuarto: Base de Datos
+   - Quinto: API Gateway
+   - Sexto: Otros activos internos
+
+2. CONEXIONES SUGERIDAS:
+   Internet → Firewall → Load Balancer → Servidor Web → Base de Datos
+   Internet → Firewall → API Gateway → Base de Datos
+   Workstations → Firewall → Servidores Internos
+
+3. COLORES EN EL MAPA:
+   - Rojo: Critical (máxima prioridad)
+   - Naranja: High (alta prioridad)
+   - Amarillo: Medium (prioridad media)
+   - Verde: Low (baja prioridad)
+
+4. BORDE GRUESO ROJO = EXPUESTO A INTERNET:
+   - Firewall
+   - Load Balancer
+   - Servidor Web público
+   - VPN Gateway
+   - API Gateway (si es público)
+
+5. TAMAÑO DEL NODO:
+   - Más grande = Más vulnerabilidades asociadas
+   - Más pequeño = Menos o ninguna vulnerabilidad
+
+6. PUNTOS A DEMOSTRAR:
+   ✓ Arrastrar nodos para reorganizar el mapa
+   ✓ Hacer zoom in/out con scroll
+   ✓ Hover sobre nodo para ver tooltip
+   ✓ Clic en nodo para ver panel lateral con detalles
+   ✓ Editar activo desde el panel lateral
+   ✓ Eliminar activo (confirmar eliminación)
+   ✓ Cambiar entre vista Topología y Lista
+   ✓ Ver estadísticas en tarjetas superiores
+   ✓ Identificar activos críticos públicamente expuestos
+
+===========================================
+NOTAS PARA LA DEMOSTRACIÓN
+===========================================
+
+FLUJO RECOMENDADO PARA DEMOSTRACIÓN:
+
+1. INICIO DE SESIÓN
+   - Crear usuario admin con username: admin, password: admin123
+
+2. DASHBOARD
+   - Mostrar estadísticas generales
+   - Explicar gráficos de distribución
+
+3. AMENAZAS
+   - Crear 2-3 amenazas de ejemplo (usar las de arriba)
+   - Mostrar filtros por severidad y estado
+   - Editar una amenaza existente
+
+4. VULNERABILIDADES
+   - Crear 2-3 vulnerabilidades (incluir Log4Shell y ProxyShell)
+   - Explicar CVSS Score
+   - Mostrar indicadores de exploit/patch disponibles
+
+5. RIESGOS
+   - Crear 3-4 riesgos vinculados a amenazas y vulnerabilidades
+   - Mostrar cálculo automático de risk score
+   - Explicar estrategias de tratamiento
+   - Mostrar riesgo residual
+
+6. MATRIZ DE RIESGOS
+   - Visualizar matriz 5x5
+   - Explicar colores y cuadrantes
+   - Filtrar por categoría
+   - Identificar riesgos críticos
+
+7. SUPERFICIE DE ATAQUE
+   - Crear 5-7 activos (incluir variedad de tipos)
+   - Mostrar mapa de red D3.js
+   - Demostrar interactividad:
+     * Arrastrar nodos
+     * Zoom y pan
+     * Hover para tooltips
+     * Clic para detalles
+   - Resaltar activos críticos públicamente expuestos
+   - Mostrar conexiones entre activos
+   - Cambiar a vista de lista
+
+8. INTEGRACIÓN
+   - Volver al dashboard
+   - Mostrar cómo los datos están conectados
+   - Explicar flujo de trabajo completo
+
+PUNTOS CLAVE A DESTACAR:
+
+✅ Sistema completo de gestión de ciberseguridad
+✅ Gestión integrada de amenazas, vulnerabilidades y riesgos
+✅ Visualizaciones interactivas con D3.js
+✅ Matriz de riesgos para priorización
+✅ Mapa de superficie de ataque en tiempo real
+✅ Cálculos automáticos de puntuaciones de riesgo
+✅ Interfaz intuitiva y fácil de usar
+✅ Autenticación y autorización con JWT
+✅ API REST completa
+✅ Filtros y búsquedas avanzadas
+✅ Base de datos relacional con Sequelize ORM
+✅ Frontend moderno con React y Tailwind CSS
+
+===========================================
+FIN DEL DOCUMENTO
+===========================================
