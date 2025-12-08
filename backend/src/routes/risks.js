@@ -27,6 +27,6 @@ router.get('/', getAllRisks);
 router.get('/:id', getRiskById);
 router.post('/', authorize('admin', 'analyst'), createRiskValidator, validate, createRisk);
 router.put('/:id', authorize('admin', 'analyst'), updateRiskValidator, validate, updateRisk);
-router.delete('/:id', authorize('admin'), deleteRisk);
+router.delete('/:id', authorize('admin', 'analyst'), deleteRisk);
 
 module.exports = router;
