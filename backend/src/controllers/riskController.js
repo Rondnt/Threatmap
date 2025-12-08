@@ -155,10 +155,30 @@ const updateRisk = async (req, res, next) => {
     if (req.body.residual_probability !== undefined) risk.residual_probability = req.body.residual_probability;
     if (req.body.residual_impact !== undefined) risk.residual_impact = req.body.residual_impact;
 
+    // Calculate risk_score and risk_level BEFORE save
+    if (risk.probability !== null && risk.probability !== undefined &&
+        risk.impact !== null && risk.impact !== undefined) {
+      const calculatedScore = (risk.probability * risk.impact * 10).toFixed(2);
+      risk.risk_score = parseFloat(calculatedScore);
+
+      const score = parseFloat(calculatedScore);
+      if (score >= 50) {
+        risk.risk_level = 'critical';
+      } else if (score >= 30) {
+        risk.risk_level = 'high';
+      } else if (score >= 15) {
+        risk.risk_level = 'medium';
+      } else {
+        risk.risk_level = 'low';
+      }
+
+      logger.info(`Calculated in controller: score=${calculatedScore}, level=${risk.risk_level}`);
+    }
+
     logger.info(`Risk before save: prob=${risk.probability}, impact=${risk.impact}, score=${risk.risk_score}, level=${risk.risk_level}`);
 
-    // Force validation to recalculate risk_score and risk_level
-    await risk.save({ validate: true });
+    // Save without relying on hooks
+    await risk.save();
 
     logger.info(`Risk after save: prob=${risk.probability}, impact=${risk.impact}, score=${risk.risk_score}, level=${risk.risk_level}`);
 
