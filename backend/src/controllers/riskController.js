@@ -59,7 +59,8 @@ const getAllRisks = async (req, res, next) => {
  */
 const getRiskById = async (req, res, next) => {
   try {
-    const risk = await Risk.findByPk(req.params.id, {
+    const risk = await Risk.findOne({
+      where: { id: req.params.id, user_id: req.user.id },
       include: [
         { association: 'threat' },
         { association: 'vulnerability' },
@@ -160,7 +161,9 @@ const updateRisk = async (req, res, next) => {
  */
 const deleteRisk = async (req, res, next) => {
   try {
-    const risk = await Risk.findByPk(req.params.id);
+    const risk = await Risk.findOne({
+      where: { id: req.params.id, user_id: req.user.id }
+    });
 
     if (!risk) {
       return notFoundResponse(res, 'Risk');
