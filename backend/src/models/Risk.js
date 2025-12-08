@@ -45,9 +45,9 @@ const Risk = sequelize.define('Risk', {
     comment: 'Impact level (1-10)'
   },
   risk_score: {
-    type: DataTypes.DECIMAL(4, 2),
+    type: DataTypes.DECIMAL(5, 2),
     allowNull: false,
-    comment: 'Calculated risk score (probability * impact * 10)'
+    comment: 'Calculated risk score (probability * impact * 10, max 100.00)'
   },
   risk_level: {
     type: DataTypes.ENUM('critical', 'high', 'medium', 'low'),
@@ -76,9 +76,9 @@ const Risk = sequelize.define('Risk', {
     comment: 'Residual impact after treatment'
   },
   residual_risk_score: {
-    type: DataTypes.DECIMAL(4, 2),
+    type: DataTypes.DECIMAL(5, 2),
     allowNull: true,
-    comment: 'Residual risk score after treatment'
+    comment: 'Residual risk score after treatment (max 100.00)'
   },
   threat_id: {
     type: DataTypes.UUID,
