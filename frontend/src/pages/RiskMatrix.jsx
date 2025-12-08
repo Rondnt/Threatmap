@@ -31,20 +31,14 @@ const RiskMatrix = () => {
     }
   };
 
-  // Calculate risk level based on probability and impact (adjusted for 5x5 matrix)
-  const calculateRiskLevel = (probability, impact) => {
-    const score = probability * impact;
+  // Calculate risk level based on actual risk score (0-100)
+  const calculateRiskLevel = (riskScore) => {
+    const score = parseFloat(riskScore) || 0;
 
-    // Critical: score 20-25 (5x4=20, 5x5=25, 4x5=20)
-    if (score >= 20) return 'critical';
-
-    // High: score 12-19 (3x4=12, 3x5=15, 4x4=16, 4x3=12)
-    if (score >= 12) return 'high';
-
-    // Medium: score 6-11 (2x3=6, 2x4=8, 2x5=10, 3x3=9, 3x2=6)
-    if (score >= 6) return 'medium';
-
-    // Low: score 1-5 (1x1=1, 1x2=2, 1x3=3, 1x4=4, 1x5=5, 2x2=4, 2x1=2)
+    // Using the same thresholds as backend: Critical ≥50, High ≥30, Medium ≥15
+    if (score >= 50) return 'critical';
+    if (score >= 30) return 'high';
+    if (score >= 15) return 'medium';
     return 'low';
   };
 
@@ -59,7 +53,7 @@ const RiskMatrix = () => {
     }
   };
 
-  // Convert probability from decimal (0.0-1.0) to scale 1-5
+  // Convert probability from decimal (0.0-1.0) to scale 1-5 for matrix visualization only
   const convertProbabilityToScale = (prob) => {
     const probFloat = parseFloat(prob) || 0;
     if (probFloat === 0) return 1;
@@ -70,7 +64,7 @@ const RiskMatrix = () => {
     return 5;
   };
 
-  // Convert impact from scale 1-10 to scale 1-5
+  // Convert impact from scale 1-10 to scale 1-5 for matrix visualization only
   const convertImpactToScale = (imp) => {
     const impInt = parseInt(imp) || 1;
     if (impInt <= 2) return 1;
@@ -138,9 +132,17 @@ const RiskMatrix = () => {
     const cellRisks = getRisksInCell(probability, impact);
     const hasRisks = cellRisks.length > 0;
 
-    // Always calculate risk level based on cell position (probability × impact)
-    // This ensures the matrix is consistent with the risk level legend
-    const riskLevel = calculateRiskLevel(probability, impact);
+    // If there are risks in this cell, use the highest risk_score to determine color
+    // This uses the actual 0-100 scoring system instead of matrix position
+    let riskLevel = 'low';
+    if (hasRisks) {
+      const maxRiskScore = Math.max(...cellRisks.map(r => parseFloat(r.risk_score) || 0));
+      riskLevel = calculateRiskLevel(maxRiskScore);
+    } else {
+      // For empty cells, calculate based on theoretical score for that position
+      const theoreticalScore = (probability / 5) * (impact * 2) * 10; // Convert to 0-100 scale
+      riskLevel = calculateRiskLevel(theoreticalScore);
+    }
     const colorClass = getRiskColor(riskLevel);
 
     // Debug logging for first render
@@ -298,40 +300,37 @@ const RiskMatrix = () => {
                 <div className="w-8 h-8 bg-red-600 rounded mr-3"></div>
                 <div>
                   <p className="font-semibold text-gray-900">Crítico</p>
-                  <p className="text-xs text-gray-600">Score Matriz: 20-25</p>
+                  <p className="text-xs text-gray-600">Score ≥ 50</p>
                 </div>
               </div>
               <div className="flex items-center">
                 <div className="w-8 h-8 bg-orange-500 rounded mr-3"></div>
                 <div>
                   <p className="font-semibold text-gray-900">Alto</p>
-                  <p className="text-xs text-gray-600">Score Matriz: 12-19</p>
+                  <p className="text-xs text-gray-600">Score 30-49</p>
                 </div>
               </div>
               <div className="flex items-center">
                 <div className="w-8 h-8 bg-yellow-400 rounded mr-3"></div>
                 <div>
                   <p className="font-semibold text-gray-900">Medio</p>
-                  <p className="text-xs text-gray-600">Score Matriz: 6-11</p>
+                  <p className="text-xs text-gray-600">Score 15-29</p>
                 </div>
               </div>
               <div className="flex items-center">
                 <div className="w-8 h-8 bg-green-500 rounded mr-3"></div>
                 <div>
                   <p className="font-semibold text-gray-900">Bajo</p>
-                  <p className="text-xs text-gray-600">Score Matriz: 1-5</p>
+                  <p className="text-xs text-gray-600">Score &lt; 15</p>
                 </div>
               </div>
             </div>
             <div className="mt-4 p-3 bg-blue-50 rounded-lg">
               <p className="text-xs text-gray-700">
-                <strong>Score de Matriz:</strong> Probabilidad (1-5) × Impacto (1-5) = 1 a 25
-              </p>
-              <p className="text-xs text-gray-700 mt-1">
-                <strong>Score de Riesgo:</strong> Probabilidad (0-1) × Impacto (1-10) × 10 = 0 a 100
+                <strong>Cálculo del Score:</strong> Probabilidad (0-1) × Impacto (1-10) × 10 = Score (0-100)
               </p>
               <p className="text-xs text-gray-500 mt-2 italic">
-                Ambos sistemas se usan juntos: la matriz para visualización y el score para gestión detallada.
+                Los colores de las celdas se basan en el score real de los riesgos que contienen.
               </p>
             </div>
           </div>
@@ -352,9 +351,7 @@ const RiskMatrix = () => {
               })
               .slice(0, 10)
               .map((risk, index) => {
-                const probScale = convertProbabilityToScale(risk.probability);
-                const impactScale = convertImpactToScale(risk.impact);
-                const matrixScore = probScale * impactScale;
+                const riskScore = parseFloat(risk.risk_score) || 0;
                 return (
                   <div
                     key={risk.id || index}
@@ -380,17 +377,15 @@ const RiskMatrix = () => {
                     <div className="flex items-center gap-4">
                       <div className="text-center">
                         <p className="text-xs text-gray-600">Probabilidad</p>
-                        <p className="text-lg font-bold text-gray-900">{probScale}/5</p>
-                        <p className="text-xs text-gray-500">{(parseFloat(risk.probability) * 100).toFixed(0)}%</p>
+                        <p className="text-lg font-bold text-gray-900">{(parseFloat(risk.probability) * 100).toFixed(0)}%</p>
                       </div>
                       <div className="text-center">
                         <p className="text-xs text-gray-600">Impacto</p>
-                        <p className="text-lg font-bold text-gray-900">{impactScale}/5</p>
-                        <p className="text-xs text-gray-500">{risk.impact}/10</p>
+                        <p className="text-lg font-bold text-gray-900">{risk.impact}/10</p>
                       </div>
                       <div className="text-center">
-                        <p className="text-xs text-gray-600">Score Matriz</p>
-                        <p className="text-2xl font-bold text-blue-600">{matrixScore}</p>
+                        <p className="text-xs text-gray-600">Score</p>
+                        <p className="text-2xl font-bold text-blue-600">{riskScore.toFixed(2)}</p>
                       </div>
                       <span className={`px-3 py-1 text-xs font-semibold rounded-full ${
                         risk.risk_level === 'critical' ? 'bg-red-100 text-red-800' :
@@ -422,9 +417,7 @@ const RiskMatrix = () => {
         {selectedCell && (
           <div className="space-y-3">
             {selectedCell.risks.map((risk, index) => {
-              const probScale = convertProbabilityToScale(risk.probability);
-              const impactScale = convertImpactToScale(risk.impact);
-              const matrixScore = probScale * impactScale;
+              const riskScore = parseFloat(risk.risk_score) || 0;
 
               return (
                 <div key={risk.id || index} className="p-4 bg-gray-50 rounded-lg">
@@ -433,17 +426,16 @@ const RiskMatrix = () => {
                   <div className="grid grid-cols-3 gap-4 text-sm">
                     <div className="bg-white p-2 rounded">
                       <span className="text-gray-500 block">Probabilidad:</span>
-                      <span className="font-bold text-lg">{probScale}/5</span>
-                      <span className="text-xs text-gray-500 block">({(parseFloat(risk.probability) * 100).toFixed(0)}%)</span>
+                      <span className="font-bold text-lg">{(parseFloat(risk.probability) * 100).toFixed(0)}%</span>
+                      <span className="text-xs text-gray-500 block">({parseFloat(risk.probability).toFixed(2)})</span>
                     </div>
                     <div className="bg-white p-2 rounded">
                       <span className="text-gray-500 block">Impacto:</span>
-                      <span className="font-bold text-lg">{impactScale}/5</span>
-                      <span className="text-xs text-gray-500 block">({risk.impact}/10)</span>
+                      <span className="font-bold text-lg">{risk.impact}/10</span>
                     </div>
                     <div className="bg-white p-2 rounded">
-                      <span className="text-gray-500 block">Score Matriz:</span>
-                      <span className="font-bold text-blue-600 text-lg">{matrixScore}</span>
+                      <span className="text-gray-500 block">Score:</span>
+                      <span className="font-bold text-blue-600 text-lg">{riskScore.toFixed(2)}</span>
                       <span className={`text-xs px-2 py-1 rounded-full mt-1 inline-block ${
                         risk.risk_level === 'critical' ? 'bg-red-100 text-red-800' :
                         risk.risk_level === 'high' ? 'bg-orange-100 text-orange-800' :
