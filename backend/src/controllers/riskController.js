@@ -140,12 +140,14 @@ const updateRisk = async (req, res, next) => {
     if (req.body.description !== undefined) risk.description = req.body.description;
     if (req.body.category !== undefined) risk.category = req.body.category;
     if (req.body.probability !== undefined) {
-      risk.probability = req.body.probability;
-      logger.info(`Updated probability to: ${risk.probability}`);
+      // Convert to number to ensure proper type
+      risk.probability = parseFloat(req.body.probability);
+      logger.info(`Updated probability to: ${risk.probability} (from: ${req.body.probability}, type: ${typeof req.body.probability})`);
     }
     if (req.body.impact !== undefined) {
-      risk.impact = req.body.impact;
-      logger.info(`Updated impact to: ${risk.impact}`);
+      // Convert to integer to ensure proper type
+      risk.impact = parseInt(req.body.impact, 10);
+      logger.info(`Updated impact to: ${risk.impact} (from: ${req.body.impact}, type: ${typeof req.body.impact})`);
     }
     if (req.body.treatment_strategy !== undefined) risk.treatment_strategy = req.body.treatment_strategy;
     if (req.body.treatment_plan !== undefined) risk.treatment_plan = req.body.treatment_plan;
