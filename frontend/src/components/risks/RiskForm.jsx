@@ -8,7 +8,7 @@ const RiskForm = ({ risk, onSubmit, onCancel }) => {
     category: 'technical',
     probability: 0.5,
     impact: 5,
-    mitigation_plan: '',
+    treatment_plan: '',
     owner: ''
   });
 
@@ -20,7 +20,7 @@ const RiskForm = ({ risk, onSubmit, onCancel }) => {
         category: risk.category || 'technical',
         probability: risk.probability || 0.5,
         impact: risk.impact || 5,
-        mitigation_plan: risk.mitigation_plan || '',
+        treatment_plan: risk.treatment_plan || '',
         owner: risk.owner || ''
       });
     }
@@ -215,18 +215,18 @@ const RiskForm = ({ risk, onSubmit, onCancel }) => {
           </p>
         </div>
 
-        {/* Plan de Mitigación */}
+        {/* Plan de Tratamiento */}
         <div className="md:col-span-2">
           <label className="block text-sm font-medium text-gray-700 mb-1">
-            Plan de Mitigación
+            Plan de Tratamiento
           </label>
           <textarea
-            name="mitigation_plan"
-            value={formData.mitigation_plan}
+            name="treatment_plan"
+            value={formData.treatment_plan}
             onChange={handleChange}
             rows="3"
             className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-            placeholder="Describe las acciones para mitigar este riesgo..."
+            placeholder="Describe las acciones para tratar este riesgo..."
           />
         </div>
       </div>
