@@ -80,18 +80,27 @@ const Risks = () => {
 
   const handleSubmit = async (formData) => {
     try {
+      let updatedRisk;
       if (editingRisk) {
-        await riskService.update(editingRisk.id, formData);
+        const response = await riskService.update(editingRisk.id, formData);
+        updatedRisk = response.data?.risk;
+        console.log('Response from update:', response);
+        console.log('Updated risk from server:', updatedRisk);
         toast.success('Riesgo actualizado exitosamente');
       } else {
         await riskService.create(formData);
         toast.success('Riesgo creado exitosamente');
       }
+
+      // Close modal and clear editing state
       setIsModalOpen(false);
       setEditingRisk(null);
-      // Wait for risks to reload before proceeding
+
+      // Force a complete reload of risks from the server
+      setLoading(true);
       await loadRisks();
     } catch (error) {
+      console.error('Error saving risk:', error);
       toast.error(error.response?.data?.message || 'Error al guardar riesgo');
     }
   };
