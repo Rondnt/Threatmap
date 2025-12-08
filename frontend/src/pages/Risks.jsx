@@ -88,7 +88,9 @@ const Risks = () => {
         toast.success('Riesgo creado exitosamente');
       }
       setIsModalOpen(false);
-      loadRisks();
+      setEditingRisk(null);
+      // Wait for risks to reload before proceeding
+      await loadRisks();
     } catch (error) {
       toast.error(error.response?.data?.message || 'Error al guardar riesgo');
     }
