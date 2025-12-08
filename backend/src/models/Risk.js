@@ -120,6 +120,8 @@ const Risk = sequelize.define('Risk', {
         const calculatedScore = (risk.probability * risk.impact * 10).toFixed(2);
         console.log(`  - Calculated score: ${calculatedScore}`);
         risk.risk_score = calculatedScore;
+        // Force Sequelize to mark this field as changed
+        risk.changed('risk_score', true);
 
         // Determine risk level - adjusted to be more reasonable
         // probability (0-1) × impact (1-10) × 10 = max score 100
@@ -136,6 +138,8 @@ const Risk = sequelize.define('Risk', {
         }
         console.log(`  - New risk_level: ${newLevel} (was: ${risk.risk_level})`);
         risk.risk_level = newLevel;
+        // Force Sequelize to mark this field as changed
+        risk.changed('risk_level', true);
       } else {
         console.log('  ⚠️  Probability or impact is null/undefined, skipping calculation');
       }
