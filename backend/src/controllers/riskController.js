@@ -134,8 +134,8 @@ const updateRisk = async (req, res, next) => {
     // Update fields
     Object.assign(risk, req.body);
 
-    // Recalculate if probability or impact changed
-    if (req.body.probability || req.body.impact) {
+    // Always recalculate risk score and level if probability or impact are in the request
+    if ('probability' in req.body || 'impact' in req.body) {
       const calculation = calculateRisk(risk.probability, risk.impact);
       risk.risk_score = calculation.riskScore;
       risk.risk_level = calculation.riskLevel;

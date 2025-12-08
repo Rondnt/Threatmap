@@ -14,6 +14,18 @@ const RiskMatrix = () => {
 
   useEffect(() => {
     loadRisks();
+
+    // Reload risks when window gets focus (e.g., after editing in another tab/page)
+    const handleFocus = () => {
+      console.log('Window focused - reloading risks');
+      loadRisks();
+    };
+
+    window.addEventListener('focus', handleFocus);
+
+    return () => {
+      window.removeEventListener('focus', handleFocus);
+    };
   }, []);
 
   const loadRisks = async () => {
@@ -198,6 +210,14 @@ const RiskMatrix = () => {
             <FaShieldAlt className="mr-3 text-blue-600" />
             Matriz de Riesgos
           </h1>
+          <button
+            onClick={() => loadRisks()}
+            className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center gap-2"
+            title="Refrescar datos"
+          >
+            <FaChartLine />
+            Refrescar
+          </button>
         </div>
 
         {/* Statistics Cards */}
