@@ -323,9 +323,17 @@ const RiskMatrix = () => {
                 </div>
               </div>
             </div>
-            <p className="text-xs text-gray-500 mt-4">
-              <strong>Nota:</strong> Score Matriz = Probabilidad (1-5) × Impacto (1-5)
-            </p>
+            <div className="mt-4 p-3 bg-blue-50 rounded-lg">
+              <p className="text-xs text-gray-700">
+                <strong>Score de Matriz:</strong> Probabilidad (1-5) × Impacto (1-5) = 1 a 25
+              </p>
+              <p className="text-xs text-gray-700 mt-1">
+                <strong>Score de Riesgo:</strong> Probabilidad (0-1) × Impacto (1-10) × 10 = 0 a 100
+              </p>
+              <p className="text-xs text-gray-500 mt-2 italic">
+                Ambos sistemas se usan juntos: la matriz para visualización y el score para gestión detallada.
+              </p>
+            </div>
           </div>
         </div>
 
