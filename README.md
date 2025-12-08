@@ -164,4 +164,4 @@ La aplicación estará disponible en:
 
 ## 👥 Autor
 
-J. Ross
+J. Rondnt
