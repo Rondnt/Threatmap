@@ -131,11 +131,20 @@ const updateRisk = async (req, res, next) => {
       return notFoundResponse(res, 'Risk');
     }
 
-    // Update fields
-    Object.assign(risk, req.body);
+    // Update fields explicitly to trigger validation hooks
+    if (req.body.name !== undefined) risk.name = req.body.name;
+    if (req.body.description !== undefined) risk.description = req.body.description;
+    if (req.body.category !== undefined) risk.category = req.body.category;
+    if (req.body.probability !== undefined) risk.probability = req.body.probability;
+    if (req.body.impact !== undefined) risk.impact = req.body.impact;
+    if (req.body.treatment_strategy !== undefined) risk.treatment_strategy = req.body.treatment_strategy;
+    if (req.body.treatment_plan !== undefined) risk.treatment_plan = req.body.treatment_plan;
+    if (req.body.status !== undefined) risk.status = req.body.status;
+    if (req.body.residual_probability !== undefined) risk.residual_probability = req.body.residual_probability;
+    if (req.body.residual_impact !== undefined) risk.residual_impact = req.body.residual_impact;
 
-    // The beforeValidate hook will automatically recalculate risk_score and risk_level
-    await risk.save();
+    // Force validation to recalculate risk_score and risk_level
+    await risk.save({ validate: true });
 
     logger.info(`Risk updated: ${risk.id}`);
 
