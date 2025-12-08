@@ -162,10 +162,6 @@ La aplicación estará disponible en:
 - Exportación de datos
 - Gráficos y métricas
 
-## 📝 Licencia
-
-MIT
-
 ## 👥 Autor
 
-Proyecto desarrollado para gestión de riesgos y amenazas de ciberseguridad.
+J. Ross
