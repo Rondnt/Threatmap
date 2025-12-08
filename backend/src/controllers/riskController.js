@@ -134,13 +134,7 @@ const updateRisk = async (req, res, next) => {
     // Update fields
     Object.assign(risk, req.body);
 
-    // Always recalculate risk score and level if probability or impact are in the request
-    if ('probability' in req.body || 'impact' in req.body) {
-      const calculation = calculateRisk(risk.probability, risk.impact);
-      risk.risk_score = calculation.riskScore;
-      risk.risk_level = calculation.riskLevel;
-    }
-
+    // The beforeValidate hook will automatically recalculate risk_score and risk_level
     await risk.save();
 
     logger.info(`Risk updated: ${risk.id}`);
