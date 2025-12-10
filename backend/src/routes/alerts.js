@@ -19,7 +19,116 @@ router.get('/', async (req, res) => {
       });
     }
 
-    // Get critical and high severity items for this user only
+    // For resolved/dismissed status, get all alerts from Alert table
+    if (status === 'resolved' || status === 'dismissed') {
+      const alertRecords = await Alert.findAll({
+        where: { status },
+        order: [['resolved_at', 'DESC']]
+      });
+
+      // Get the related entities for these alerts
+      const riskIds = [];
+      const threatIds = [];
+      const vulnIds = [];
+
+      alertRecords.forEach(alert => {
+        if (alert.related_entity_type === 'risk') {
+          riskIds.push(alert.related_entity_id);
+        } else if (alert.related_entity_type === 'threat') {
+          threatIds.push(alert.related_entity_id);
+        } else if (alert.related_entity_type === 'vulnerability') {
+          vulnIds.push(alert.related_entity_id);
+        }
+      });
+
+      // Fetch the related entities
+      const [risks, threats, vulns] = await Promise.all([
+        riskIds.length > 0 ? Risk.findAll({ where: { id: riskIds, user_id: userId } }) : [],
+        threatIds.length > 0 ? Threat.findAll({ where: { id: threatIds, user_id: userId } }) : [],
+        vulnIds.length > 0 ? Vulnerability.findAll({ where: { id: vulnIds, user_id: userId } }) : []
+      ]);
+
+      // Create a map for quick lookup
+      const riskMap = {};
+      const threatMap = {};
+      const vulnMap = {};
+
+      risks.forEach(r => { riskMap[r.id] = r; });
+      threats.forEach(t => { threatMap[t.id] = t; });
+      vulns.forEach(v => { vulnMap[v.id] = v; });
+
+      // Build the alerts array
+      const alerts = alertRecords.map(alert => {
+        if (alert.related_entity_type === 'risk' && riskMap[alert.related_entity_id]) {
+          const risk = riskMap[alert.related_entity_id];
+          return {
+            id: `risk-${risk.id}`,
+            type: 'risk',
+            severity: risk.risk_level,
+            name: risk.name,
+            description: risk.description,
+            createdAt: risk.createdAt,
+            updatedAt: risk.updatedAt,
+            alertStatus: alert.status,
+            is_read: alert.is_read,
+            data: {
+              probability: risk.probability,
+              impact: risk.impact,
+              risk_score: risk.risk_score
+            }
+          };
+        } else if (alert.related_entity_type === 'threat' && threatMap[alert.related_entity_id]) {
+          const threat = threatMap[alert.related_entity_id];
+          return {
+            id: `threat-${threat.id}`,
+            type: 'threat',
+            severity: threat.severity,
+            name: threat.name,
+            description: threat.description,
+            createdAt: threat.createdAt,
+            updatedAt: threat.updatedAt,
+            alertStatus: alert.status,
+            is_read: alert.is_read,
+            data: {
+              type: threat.type,
+              status: threat.status,
+              source: threat.source
+            }
+          };
+        } else if (alert.related_entity_type === 'vulnerability' && vulnMap[alert.related_entity_id]) {
+          const vuln = vulnMap[alert.related_entity_id];
+          return {
+            id: `vulnerability-${vuln.id}`,
+            type: 'vulnerability',
+            severity: vuln.severity,
+            name: vuln.name,
+            description: vuln.description,
+            createdAt: vuln.createdAt,
+            updatedAt: vuln.updatedAt,
+            alertStatus: alert.status,
+            is_read: alert.is_read,
+            data: {
+              cve_id: vuln.cve_id,
+              cvss_score: vuln.cvss_score,
+              status: vuln.status
+            }
+          };
+        }
+        return null;
+      }).filter(a => a !== null); // Remove nulls (deleted entities)
+
+      return res.json({
+        success: true,
+        data: {
+          alerts,
+          total: alerts.length,
+          critical: alerts.filter(a => a.severity === 'critical').length,
+          high: alerts.filter(a => a.severity === 'high').length
+        }
+      });
+    }
+
+    // For active/all status, get currently critical/high entities
     const [criticalRisks, criticalThreats, criticalVulns, alertStatuses] = await Promise.all([
       Risk.findAll({
         where: {
