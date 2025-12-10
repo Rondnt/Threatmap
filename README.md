@@ -2,14 +2,14 @@
 
 Plataforma web para mapear, categorizar y visualizar amenazas, vulnerabilidades y riesgos de seguridad en infraestructuras, con análisis de superficie de ataque.
 
-## 🎯 Características Principales
+## Características Principales
 
-- ✅ Registro y categorización de amenazas por tipo y severidad
-- ✅ Calculadora de riesgo (probabilidad × impacto)
-- ✅ Visualización gráfica de superficie de ataque
-- ✅ Sistema de alertas en tiempo real
-- ✅ Matriz de riesgos interactiva
-- ✅ Exportación de informes en PDF
+- Registro y categorización de amenazas por tipo y severidad
+- Calculadora de riesgo (probabilidad × impacto)
+- Visualización gráfica de superficie de ataque
+- Sistema de alertas en tiempo real
+- Matriz de riesgos interactiva
+- Exportación de informes en PDF
 
 ## 🛠️ Stack Tecnológico
 
@@ -27,7 +27,7 @@ Plataforma web para mapear, categorizar y visualizar amenazas, vulnerabilidades 
 - Socket.io (alertas en tiempo real)
 - JWT Authentication
 
-## 📁 Estructura del Proyecto
+## Estructura del Proyecto
 
 ```
 threatmap/
@@ -74,7 +74,7 @@ threatmap/
     └── API.md                 # (Se creará después)
 ```
 
-## 🚀 Instalación y Configuración
+## Instalación y Configuración
 
 ### Requisitos Previos
 - Node.js 18+
@@ -129,7 +129,7 @@ La aplicación estará disponible en:
 - Frontend: http://localhost:3000
 - Backend API: http://localhost:5000
 
-## 📊 Módulos Principales
+## Módulos Principales
 
 ### 1. Gestión de Amenazas
 - Registro de amenazas
@@ -162,6 +162,6 @@ La aplicación estará disponible en:
 - Exportación de datos
 - Gráficos y métricas
 
-## 👥 Autor
+## Autor
 
 J. Rondnt
