@@ -11,7 +11,7 @@ Plataforma web para mapear, categorizar y visualizar amenazas, vulnerabilidades 
 - Matriz de riesgos interactiva
 - Exportación de informes en PDF
 
-## 🛠️ Stack Tecnológico
+## Stack Tecnológico
 
 ### Frontend
 - React 18+
